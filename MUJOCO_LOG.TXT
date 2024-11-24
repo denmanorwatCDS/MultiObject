@@ -1,0 +1,9 @@
+Wed Nov 20 14:17:47 2024
+ERROR: GLEW initalization error: Missing GL version
+
+Wed Nov 20 14:19:20 2024
+ERROR: GLEW initalization error: Missing GL version
+
+Wed Nov 20 14:19:45 2024
+ERROR: GLEW initalization error: Missing GL version
+
