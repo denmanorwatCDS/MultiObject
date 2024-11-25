@@ -148,10 +148,10 @@ def pick_and_place(env, current_obs, video_size = 800):
             movie.append(env.render(mode = 'rgb_array', width = video_size, height = video_size))
 
         # Drop object onto goal
-        _, reward, _, _ = env.step(np.array([0., 0., 0., 1.]))
+        _, reward, done, _ = env.step(np.array([0., 0., 0., 1.]))
         movie.append(env.render(mode = 'rgb_array', width = video_size, height = video_size))
 
-        print(reward)
+        print('Reward: {}; done: {}'.format(reward, done))
     return movie
 
 def save_video(movie, name, video_size = 800):
@@ -172,7 +172,7 @@ movie = push_block(env, obs)
 save_video(movie, 'push.mp4')
 
 # Interesting seed: 534
-env.seed(534)
+env.seed(434)
 obs = env.reset()
 movie = pick_and_place(env, obs)
 save_video(movie, 'pick_and_place.mp4')

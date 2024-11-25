@@ -225,11 +225,10 @@ class MultipleFetchPickAndPlaceEnv(robot_env.RobotEnv, utils.EzPickle):
         }
     
     def _is_success(self, achieved_goal, desired_goal):
-        desired_goal = desired_goal.copy()[:, :2]
+        desired_goal = desired_goal.copy()[0, :2]
         for object_pos in achieved_goal[:, :2]:
-            if np.linalg.norm(object_pos[0] - desired_goal[0], axis=-1) > self.distance_threshold:
+            if np.linalg.norm(object_pos - desired_goal, axis=-1) > self.distance_threshold:
                 return False
-        
         return True
     
     def compute_reward(self, achieved_goal, goal, info):
