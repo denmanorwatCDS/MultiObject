@@ -160,7 +160,7 @@ class MultipleFetchPickAndPlaceEnv(robot_env.RobotEnv, utils.EzPickle):
             goal[:, 1] = goal[:, 1] * (table_size[1] - safe_margin) + table_pos[1]
 
             for i in range(points.shape[0]):
-                if np.linalg.norm(goal[0] - points[i][:2]) < self.distance_threshold:
+                if np.linalg.norm(goal[0] - points[i][:2]) < self.distance_threshold + safe_margin:
                     done = False
             
         goal = np.concatenate([goal, np.zeros((1, 1))], axis = -1)
@@ -234,9 +234,9 @@ class MultipleFetchPickAndPlaceEnv(robot_env.RobotEnv, utils.EzPickle):
     
     def compute_reward(self, achieved_goal, goal, info):
         total_objects_in_zone = 0
-        goal = goal.copy()[:, :2]
+        goal = goal.copy()[0, :2]
         for object_pos in achieved_goal[:, :2]:
-            total_objects_in_zone += (np.linalg.norm(object_pos[0] - goal[0]) < self.distance_threshold)
+            total_objects_in_zone += (np.linalg.norm(object_pos - goal) < self.distance_threshold)
         reward = (total_objects_in_zone / len(achieved_goal))
         return reward - 1
     
